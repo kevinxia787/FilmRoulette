@@ -1,0 +1,46 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+#titleText {
+	-fx-font-weight: bold;
+	-fx-alignment: top-center; 
+}
+
+#accessRelease {
+	-fx-font-weight: bold;
+	-fx-font-size: 18px;
+}
+
+#language {
+	-fx-font-weight: bold;
+	-fx-font-size: 18px;
+}
+
+#budget {
+	-fx-font-weight: bold;
+	-fx-font-size: 18px;
+}
+
+#revenue {
+	-fx-font-weight: bold;
+	-fx-font-size: 18px;
+}
+
+#overview {
+	-fx-font-weight: bold;
+	-fx-font-size: 18px;
+}
+
+#produced {
+	-fx-font-weight: bold;
+	-fx-font-size: 18px;
+}
+
+#cast {
+	-fx-font-weight: bold;
+	-fx-font-size: 18px;
+}
+
+#title {
+	-fx-font-weight: bold;
+	-fx-font-size: 18px;
+}
