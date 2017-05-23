@@ -51,7 +51,7 @@ public class Main extends Application {
 			Scene scene = new Scene(root,850,550);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("WatchSomething");
+			primaryStage.setTitle("FilmRoulette");
 			
 			// Year Input
 			Label yearLB = new Label("Lower Year:");
@@ -180,8 +180,12 @@ public class Main extends Application {
 					// Get Genre ID
 					String genreID = Genre.getGenreId(genre);
 					
+					// Set random page first
+					int totalPages = MovieInfo.getTotalPages(genreID, yearLB, yearUB);
+					int randomPages = ThreadLocalRandom.current().nextInt(0, totalPages + 1);
+					
 					// First we set the movie list 
-					List<MovieDb> moviesList = MovieInfo.getMovieList(genreID, yearLB, yearUB);
+					List<MovieDb> moviesList = MovieInfo.getMovieList(randomPages, genreID, yearLB, yearUB);
 					
 					// Get the movie id
 					int movieId = MovieInfo.getSelectedMovieId(moviesList);

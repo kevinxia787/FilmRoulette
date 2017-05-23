@@ -26,6 +26,8 @@ public class Test {
 		String withGenres = "28";
 		String releaseDateGte = "2011";
 		String releaseDateLte = "2014";
+		int totalPages = movies.getDiscover(page, language, sortBy, includeAdult, 0, 0, voteCountGte,
+				voteAverageGte, withGenres, releaseDateGte, releaseDateLte, "", "", "").getTotalPages();
 		List<MovieDb> movi = movies.getDiscover(page, language, sortBy, includeAdult, 0, 0, voteCountGte,
 				voteAverageGte, withGenres, releaseDateGte, releaseDateLte, "", "", "").getResults();
 //		for (int i = 0; i < movi.size(); ++i) {
@@ -36,6 +38,8 @@ public class Test {
 		
 		TmdbMovies test = new TmdbApi("863ed845decc8d1b3251092d426fc7d0").getMovies();
 		MovieDb testMovie = test.getMovie(22, "en", MovieMethod.credits);
+		
+		System.out.println("Total Pages:" + totalPages);
 		System.out.println(testMovie);
 		System.out.println(testMovie.getPosterPath());
 		System.out.println(testMovie.getBudget());

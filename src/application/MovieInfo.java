@@ -14,14 +14,14 @@ import info.movito.themoviedbapi.model.people.PersonCast;
 
 
 public class MovieInfo {
-	static String key = "863ed845decc8d1b3251092d426fc7d0";
+	static String key = "";
 	static TmdbDiscover discoverApi = new TmdbApi(key).getDiscover();
-	static int randomPage = ThreadLocalRandom.current().nextInt(1, 5+1);
 	static int randomIndex = ThreadLocalRandom.current().nextInt(0, 19+1);
 	static List<MovieDb> movies = null;
 	static int selectedMovieId = 0;
+	static int totalPages = 0;
 	
-	public static List<MovieDb> getMovieList(String withGenres, String releaseDateGte, String releaseDateLte) {
+	public static List<MovieDb> getMovieList(int randomPage, String withGenres, String releaseDateGte, String releaseDateLte) {
 		int page = randomPage;
 		String language = "en-US";
 		String sortBy = "popularity.desc";
@@ -35,12 +35,27 @@ public class MovieInfo {
 		
 		return movies;
 	}
+	
+	public static int getTotalPages(String withGenres, String releaseDateGte, String releaseDateLte) {
+		String language = "en-US";
+		String sortBy = "popularity.desc";
+		boolean includeAdult = false;
+		int voteCountGte = 300;
+		float voteAverageGte = (float) 6;
+		int year = 0;
+		int primaryReleaseYear = 0;
+		totalPages =  discoverApi.getDiscover(1, language, sortBy, includeAdult, year, primaryReleaseYear, 
+				voteCountGte, voteAverageGte, withGenres, releaseDateGte, releaseDateLte, "", "", "").getTotalPages();
+		
+		return totalPages;
+	}
+	
 	public static int getSelectedMovieId(List<MovieDb> movies) {
 		selectedMovieId = movies.get(randomIndex).getId();
 		return selectedMovieId;
 	}
 	
-	static TmdbMovies movieApi = new TmdbApi("").getMovies();
+	static TmdbMovies movieApi = new TmdbApi("863ed845decc8d1b3251092d426fc7d0").getMovies();
 	MovieDb selectedMovie = null;
 	
 	public static MovieDb getSelectedMovie(int id) {
@@ -85,7 +100,16 @@ public class MovieInfo {
 	
 	public static String getLanguage(MovieDb selectedMovie) {
 		List<Language> spokenLanguages = selectedMovie.getSpokenLanguages();
-		String primaryLanguage = spokenLanguages.get(0).getName();
+		String primaryLanguage = null;
+		for (int i = 0; i < spokenLanguages.size(); ++i) {
+			if (spokenLanguages.get(i).getName().equals("English")) {
+				primaryLanguage = spokenLanguages.get(i).getName();
+				break;
+			}
+			else {
+				continue;
+			}
+		}
 		return primaryLanguage;
 	}
 	
@@ -98,26 +122,24 @@ public class MovieInfo {
 		return cast;
 	}
 	
-	public static void main(String[] args) {
-		MovieInfo x = new MovieInfo();
-		List<MovieDb> movies = x.getMovieList("28"	, "2011", "2014");
-		System.out.println(x.getMovieList("28", "2011", "2014").toString());
-		//System.out.println(x.getMovieList("28", "2011", "2014").get(0).getId());
-		System.out.println("Here is the movie ID: " + x.getSelectedMovieId(movies));
-		int id = x.getSelectedMovieId(movies);
-		MovieDb movie = x.getSelectedMovie(id);
-		System.out.println("Here is the title: " + x.getTitle(movie));
-		System.out.println("Here is the movie: " + x.getSelectedMovie(id));
-		System.out.println("Here is the poster path: " + x.getPosterPath(movie));
-		System.out.println("Here is the budget: " + x.getBudget(movie));
-		System.out.println("Here is the revenue: " + x.getRevenue(movie));
-		System.out.println("Here is the primary language: " + x.getLanguage(movie));
-		ArrayList<String> cast = x.getCast(movie);
-		System.out.println("First cast: " + cast.get(0));
-		System.out.println("Second cast: " + cast.get(1));
-		System.out.println("Third cast: " + cast.get(2));
-		System.out.println("Fourth cast: " + cast.get(3));
-		System.out.println("Fifth cast: " + cast.get(4));
-		
-	}
+//	public static void main(String[] args) {
+//		MovieInfo x = new MovieInfo();
+//		//System.out.println(x.getMovieList("28", "2011", "2014").get(0).getId());
+//		System.out.println("Here is the movie ID: " + x.getSelectedMovieId(movies));
+//		int id = x.getSelectedMovieId(movies);
+//		MovieDb movie = x.getSelectedMovie(id);
+//		System.out.println("Here is the title: " + x.getTitle(movie));
+//		System.out.println("Here is the movie: " + x.getSelectedMovie(id));
+//		System.out.println("Here is the poster path: " + x.getPosterPath(movie));
+//		System.out.println("Here is the budget: " + x.getBudget(movie));
+//		System.out.println("Here is the revenue: " + x.getRevenue(movie));
+//		System.out.println("Here is the primary language: " + x.getLanguage(movie));
+//		ArrayList<String> cast = x.getCast(movie);
+//		System.out.println("First cast: " + cast.get(0));
+//		System.out.println("Second cast: " + cast.get(1));
+//		System.out.println("Third cast: " + cast.get(2));
+//		System.out.println("Fourth cast: " + cast.get(3));
+//		System.out.println("Fifth cast: " + cast.get(4));
+//		
+//	}
 }
