@@ -182,7 +182,7 @@ public class Main extends Application {
 					
 					// Set random page first
 					int totalPages = MovieInfo.getTotalPages(genreID, yearLB, yearUB);
-					int randomPages = ThreadLocalRandom.current().nextInt(0, totalPages + 1);
+					int randomPages = ThreadLocalRandom.current().nextInt(0, totalPages);
 					
 					// First we set the movie list 
 					List<MovieDb> moviesList = MovieInfo.getMovieList(randomPages, genreID, yearLB, yearUB);
@@ -258,6 +258,7 @@ public class Main extends Application {
 					cast3.setText(castThird);
 					cast4.setText(castFourth);
 					cast5.setText(castFifth);
+					
 					
 					
 					// New VBox

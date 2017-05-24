@@ -24,9 +24,7 @@ public class Genre {
 		return genreMap.get(genre);
 	}
 	
-	public static void main (String[] args) {
-		System.out.println(getGenreId("Action"));
-	}
+	
 
 	
 }
