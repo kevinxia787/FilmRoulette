@@ -25,6 +25,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Callback;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -41,6 +43,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.scene.web.PopupFeatures;
+import javafx.scene.web.WebView;
 
 
 public class Main extends Application {
@@ -48,18 +52,18 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,850,550);
+			Scene scene = new Scene(root,1000,550);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("FilmRoulette");
 			
 			// Year Input
 			Label yearLB = new Label("Lower Year:");
-			TextField yearInputLB = new TextField();
+			final TextField yearInputLB = new TextField();
 			yearInputLB.setPrefWidth(70);
 			yearLB.setTranslateY(5);
 			Label yearUB = new Label("Upper Year:");
-			TextField yearInputUB = new TextField();
+			final TextField yearInputUB = new TextField();
 			yearInputUB.setPrefWidth(70);
 			yearUB.setTranslateY(5);
 			
@@ -95,7 +99,7 @@ public class Main extends Application {
 			VBox yearBox = new VBox(5, yearLB, yearInputLB, yearUB, yearInputUB);
 			yearBox.setPadding(new Insets(0, 10, 5, 10));
 			VBox dropdownBox = new VBox(5, genreLabel, genreBox);
-			dropdownBox.setPadding(new Insets(0, 30, 5, 10));
+			dropdownBox.setPadding(new Insets(0, 20, 5, 10));
 			
 			// HelpBox
 			Text helpTitle = new Text("About:");
@@ -105,16 +109,16 @@ public class Main extends Application {
 			VBox helpBox = new VBox(helpTitle, helpActual);
 			helpBox.setPadding(new Insets(0, 10, 10, 10));
 			
-			// Main top box
+			// Main left box
 			VBox mainBox = new VBox(10, helpBox, yearBox, dropdownBox, triggerBox);
 			mainBox.setPadding(new Insets(20, 10, 10, 0));
 			
 			
 			// Movie INFO
-			BorderPane movieInfoBlock = new BorderPane();
+			final BorderPane movieInfoBlock = new BorderPane();
 			
 			// Movie Title (placeholder)
-			Text title = new Text("Guardians of the Galaxy");
+			final Text title = new Text("Guardians of the Galaxy");
 			title.setFont(Font.font("Verdana", 24));
 			title.setId("titleText");
 			title.setTextAlignment(TextAlignment.CENTER);
@@ -129,46 +133,58 @@ public class Main extends Application {
 			posterView.setPreserveRatio(true);
 			
 			// Other Movie Info
-			Text release = new Text("Release Date:");
+			final Text release = new Text("Release Date:");
 			release.setId("accessRelease");
-			Text releaseDate = new Text("07-30-2014");
-			Text languageTitle = new Text("Language:");
+			final Text releaseDate = new Text("07-30-2014");
+			final Text languageTitle = new Text("Language:");
 			languageTitle.setId("language");
-			Text language1 = new Text("English");
-			Text overview = new Text("Overview:");
-			Text budget1 = new Text("Budget:");
+			final Text language1 = new Text("English");
+			final Text overview = new Text("Overview:");
+			final Text budget1 = new Text("Budget:");
 			budget1.setId("budget");
-			Text budgetActual = new Text("170000000 Dollars");
-			Text revenue1 = new Text("Revenue:");
+			final Text budgetActual = new Text("170000000 Dollars");
+			final Text revenue1 = new Text("Revenue:");
 			revenue1.setId("revenue");
-			Text revenueActual = new Text("773328629 Dollars");
+			final Text revenueActual = new Text("773328629 Dollars");
 			overview.setId("overview");
-			Text overviewActual = new Text("Light years from Earth, 26 years after being abducted, Peter Quill finds himself the prime target of a manhunt after discovering an orb wanted by Ronan the Accuser");
-			overviewActual.setWrappingWidth(300);
+			final Text overviewActual = new Text("Light years from Earth, 26 years after being abducted, Peter Quill finds himself the prime target of a manhunt after discovering an orb wanted by Ronan the Accuser");
+			overviewActual.setFont(Font.font("Verdana", 12));
+			overviewActual.setWrappingWidth(400);
 			
 			// Cast
 			Text castTitle = new Text("Cast:");
 			castTitle.setId("cast");
-			Text cast1 = new Text("Chris Pratt");
-			Text cast2 = new Text("Zoe Saldana");
-			Text cast3 = new Text("Dave Bautista");
-			Text cast4 = new Text("Vin Diesel");
-			Text cast5 = new Text("Bradley Cooper");
+			final Text cast1 = new Text("Chris Pratt");
+			final Text cast2 = new Text("Zoe Saldana");
+			final Text cast3 = new Text("Dave Bautista");
+			
+			// Trailer
+			Text trailerTitle = new Text("Trailer:");
+			trailerTitle.setId("trailer");
+			Button watchTrailer = new Button("Watch Trailer");
+			Text trailerUrl = new Text("https://www.youtube.com/watch?v=d96cjJhvlMA");
+			
+			
 			
 			// VBox with other info
-			VBox info = new VBox(release, releaseDate, languageTitle, language1 ,budget1, budgetActual, 
+			VBox info = new VBox(2.5, release, releaseDate, languageTitle, language1 ,budget1, budgetActual, 
 					revenue1, revenueActual, overview, overviewActual,
-					castTitle, cast1, cast2, cast3);
+					castTitle, cast1, cast2, cast3, trailerTitle, watchTrailer);
 			info.setPadding(new Insets(0, 10, 0, 20));
 			
+			watchTrailer.setOnAction(new EventHandler<ActionEvent>() {
+				public void handle(ActionEvent event) {
+					String urlx = trailerUrl.getText();
+					System.out.println(urlx);
+					getHostServices().showDocument(urlx);
+				}
+			});
 			
 			// Add to MovieInfo
 			movieInfoBlock.setTop(titleOfMovie);
 			movieInfoBlock.setLeft(posterView);
 			movieInfoBlock.setCenter(info);
 			submit.setOnAction(new EventHandler<ActionEvent>() {
-
-				@Override
 				public void handle(ActionEvent event) {
 					// Grab the year bounds
 					String yearLB = yearInputLB.getText();
@@ -182,7 +198,8 @@ public class Main extends Application {
 					
 					// Set random page first
 					int totalPages = MovieInfo.getTotalPages(genreID, yearLB, yearUB);
-					int randomPages = ThreadLocalRandom.current().nextInt(0, totalPages);
+					int randomPages = ThreadLocalRandom.current().nextInt(1, totalPages);
+					System.out.println(randomPages);
 					
 					// First we set the movie list 
 					List<MovieDb> moviesList = MovieInfo.getMovieList(randomPages, genreID, yearLB, yearUB);
@@ -228,6 +245,9 @@ public class Main extends Application {
 					String castFourth = castMembers.get(3);
 					String castFifth = castMembers.get(4);
 					
+					// Get new trailer url
+					String actualTrailerUrl = MovieInfo.getTrailerUrl(selectedMovie);
+					
 					// Set the new title
 					title.setText(titleOfMovie);
 					
@@ -256,15 +276,16 @@ public class Main extends Application {
 					cast1.setText(castFirst);
 					cast2.setText(castSecond);
 					cast3.setText(castThird);
-					cast4.setText(castFourth);
-					cast5.setText(castFifth);
+					
+					// Set trailer
+					trailerUrl.setText(actualTrailerUrl);
 					
 					
 					
 					// New VBox
 					VBox updatedInfo = new VBox(release, releaseDate, languageTitle,
 							language1, budget1, budgetActual, revenue1, revenueActual, overview, overviewActual, 
-							castTitle, cast1, cast2, cast3);
+							castTitle, cast1, cast2, cast3, trailerTitle, watchTrailer);
 					updatedInfo.setPadding(new Insets(0, 10, 0, 20));
 					HBox titleBox = new HBox(title);
 					titleBox.setAlignment(Pos.TOP_CENTER);
