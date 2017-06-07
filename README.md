@@ -20,4 +20,6 @@ Known Bugs:
 1. High volumn of text in OVERVIEW part essentially pushes down the submit button.             
    - Currently trying to find a way to set a max length for Text
 2. Trailer button will not work for Movies with no trailer. Need a way to fix
+3. Going to try and figure out a good UI color palette for the desktop app. Might be a bit hard since there could be clash with posters
+
   
