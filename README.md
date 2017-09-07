@@ -10,6 +10,8 @@ UI build with JavaFX, hopefully I can make it look prettier in the future.
 
 Changelog:
 Version 1.0:
+
+
 Fully working version of FilmRoulette!
 Gonna demo to OpenWeb members to get some feedback on ui/look/feel/info/etc
 Updated with executable Jar file. 
@@ -24,6 +26,8 @@ Known Bugs:
 
 Changelog:
 Version 1.0.1:
+
+
 Fixed the issue with text in overfiew pushing down submit button.
 Hopefully on Monday 9/11/17 I can demo to Open Web.
 
