@@ -15,11 +15,16 @@ Gonna demo to OpenWeb members to get some feedback on ui/look/feel/info/etc
 Updated with executable Jar file. 
 
 
-Current Version: 1.0
+Current Version: 1.0.0
 Known Bugs:
-1. High volumn of text in OVERVIEW part essentially pushes down the submit button.             
+1. High volume of text in OVERVIEW part essentially pushes down the submit button.             
    - Currently trying to find a way to set a max length for Text
 2. Trailer button will not work for Movies with no trailer. Need a way to fix
 3. Going to try and figure out a good UI color palette for the desktop app. Might be a bit hard since there could be clash with posters
+
+Changelog:
+Version 1.0.1:
+Fixed the issue with text in overfiew pushing down submit button.
+Hopefully on Monday 9/11/17 I can demo to Open Web.
 
   
