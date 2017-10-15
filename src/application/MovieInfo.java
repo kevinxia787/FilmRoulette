@@ -56,7 +56,7 @@ public class MovieInfo {
 		return selectedMovieId;
 	}
 	
-	static TmdbMovies movieApi = new TmdbApi("863ed845decc8d1b3251092d426fc7d0").getMovies();
+	static TmdbMovies movieApi = new TmdbApi("redacted").getMovies();
 	MovieDb selectedMovie = null;
 	
 	public static MovieDb getSelectedMovie(int id) {
