@@ -23,8 +23,4 @@ public class Genre {
 	public static String getGenreId(String genre) {
 		return genreMap.get(genre);
 	}
-	
-	
-
-	
 }
