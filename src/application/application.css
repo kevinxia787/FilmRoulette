@@ -6,46 +6,56 @@
 }
 
 #accessRelease {
+	-fx-font-family: sans-serif;
 	-fx-font-weight: bold;
 	-fx-font-size: 18px;
 }
 
 #language {
+	-fx-font-family: sans-serif;
 	-fx-font-weight: bold;
 	-fx-font-size: 18px;
 }
 
 #budget {
+	-fx-font-family: sans-serif;
 	-fx-font-weight: bold;
 	-fx-font-size: 18px;
 }
 
 #revenue {
+	-fx-font-family: sans-serif;
 	-fx-font-weight: bold;
 	-fx-font-size: 18px;
 }
 
 #overview {
+	-fx-font-family: sans-serif;
 	-fx-font-weight: bold;
 	-fx-font-size: 18px;
 }
 
 #produced {
+	-fx-font-family: sans-serif;
 	-fx-font-weight: bold;
 	-fx-font-size: 18px;
 }
 
 #cast {
+	-fx-font-family: sans-serif;
 	-fx-font-weight: bold;
 	-fx-font-size: 18px;
 }
 
 #title {
+	-fx-font-family: sans-serif;
+	-fx-font-family: sans-serif;
 	-fx-font-weight: bold;
 	-fx-font-size: 18px;
 }
 
 #trailer {
+	-fx-font-family: sans-serif;
 	-fx-font-weight: bold;
 	-fx-font-size: 18px;	
 }

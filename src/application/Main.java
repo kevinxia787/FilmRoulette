@@ -52,6 +52,8 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			BorderPane root = new BorderPane();
+			BorderPane triggerPane = new BorderPane();
+			BorderPane centerPane = new BorderPane();
 			Scene scene = new Scene(root,1000,550);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -93,7 +95,8 @@ public class Main extends Application {
 			// Trigger Box
 			Button submit = new Button("Submit");
 			VBox triggerBox = new VBox(submit);
-			triggerBox.setPadding(new Insets(30, 10, 10, 10));
+			triggerBox.setAlignment(Pos.BASELINE_LEFT);
+			triggerBox.setPadding(new Insets(30, 30, 13, 10));
 			
 			// Adding buttons to HBox
 			VBox yearBox = new VBox(5, yearLB, yearInputLB, yearUB, yearInputUB);
@@ -110,16 +113,18 @@ public class Main extends Application {
 			helpBox.setPadding(new Insets(0, 10, 10, 10));
 			
 			// Main left box
-			VBox mainBox = new VBox(10, helpBox, yearBox, dropdownBox, triggerBox);
-			mainBox.setPadding(new Insets(20, 10, 10, 0));
+			VBox optionsBox = new VBox(10, helpBox, yearBox, dropdownBox);
+			optionsBox.setPadding(new Insets(20, 10, 10, 0));
 			
+			// Set triggerBox to triggerPane
+			triggerPane.setBottom(triggerBox);
 			
 			// Movie INFO
 			final BorderPane movieInfoBlock = new BorderPane();
 			
 			// Movie Title (placeholder)
 			final Text title = new Text("Guardians of the Galaxy");
-			title.setFont(Font.font("Verdana", 24));
+			title.setFont(Font.font("Verdana", 20));
 			title.setId("titleText");
 			title.setTextAlignment(TextAlignment.CENTER);
 			HBox titleOfMovie = new HBox(title);
@@ -148,7 +153,7 @@ public class Main extends Application {
 			final Text revenueActual = new Text("773328629 Dollars");
 			overview.setId("overview");
 			final Text overviewActual = new Text("Light years from Earth, 26 years after being abducted, Peter Quill finds himself the prime target of a manhunt after discovering an orb wanted by Ronan the Accuser");
-			overviewActual.setFont(Font.font("Verdana", 12));
+			overviewActual.setFont(Font.font("Verdana", 10));
 			overviewActual.setWrappingWidth(400);
 			
 			// Cast
@@ -292,16 +297,17 @@ public class Main extends Application {
 					movieInfoBlock.setTop(titleBox);
 					movieInfoBlock.setLeft(posterView);
 					movieInfoBlock.setCenter(updatedInfo);
-					root.setCenter(movieInfoBlock);
+					centerPane.setCenter(movieInfoBlock);
 					
 				}
 				
 			});
 			
 			// Add to Stage
-			root.setLeft(mainBox);
-			root.setCenter(movieInfoBlock);
-			root.setBottom(triggerBox);
+			centerPane.setLeft(optionsBox);
+			centerPane.setCenter(movieInfoBlock);
+			root.setCenter(centerPane);
+			root.setBottom(triggerPane);
 			
 			
 			primaryStage.setResizable(false);
